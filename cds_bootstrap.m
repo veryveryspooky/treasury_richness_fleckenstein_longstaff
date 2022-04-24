@@ -30,3 +30,4 @@ a = cell2table(a);
 a.a1 = datestr(a.a1(:,1));
 %%
 writetable(a, 'hazard_rates.csv')
+
