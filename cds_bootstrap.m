@@ -29,5 +29,8 @@ a = num2cell(rows);
 a = cell2table(a);
 a.a1 = datestr(a.a1(:,1));
 %%
+a.Properties.VariableNames = cds_data.Properties.VariableNames(1:8);
 writetable(a, 'hazard_rates.csv')
+%%
+
 
