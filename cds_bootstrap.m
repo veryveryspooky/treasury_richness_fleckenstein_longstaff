@@ -3,9 +3,11 @@ interest_rates = readtable('./interest_rates_from_df.csv');
 %%
 start_date = datenum('2015-01-02');
 end_date = datenum('2022-03-31');
-settlement_date = start_date;
-% for settlement_date = start_date:end_date
+rows = [];
+% settlement_date = start_date;
+for i = 1:length(cds_data.SettlementDate)
 
+settlement_date = cds_data.SettlementDate(i);
 sd_dn = datenum(settlement_date);
 r = interest_rates(interest_rates.Date == datestr(settlement_date), :);
 
@@ -19,7 +21,12 @@ mkt_rates = table2array(mkt(:, 9:end))';
 mkt_data = [mkt_dates, mkt_rates];
 
 [temp,HazData] = cdsbootstrap(zero_data,mkt_data,sd_dn, 'ZeroCompounding', -1);
+rows = [rows [sd_dn HazData(:,2)']];
 
-% end
+end
 %%
-temp
+a = num2cell(rows);
+%%
+cell2table(a)
+%%
+
